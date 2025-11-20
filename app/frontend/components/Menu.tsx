@@ -2,24 +2,86 @@ import clsx from "clsx"
 import { NavLink } from "react-router"
 
 const Menu = () => {
+  const menuItems = [
+    {
+      to: "/",
+      icon: (
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+      ),
+    },
+    {
+      to: "/promote",
+      icon: (
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+          <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+          <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+          <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+        </svg>
+      ),
+    },
+    {
+      to: "/claim",
+      icon: (
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="20 12 20 22 4 22 4 12" />
+          <rect x="2" y="7" width="20" height="5" />
+          <line x1="12" y1="22" x2="12" y2="7" />
+          <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+          <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+        </svg>
+      ),
+    },
+  ]
+
   return (
-    <nav className={clsx("fixed bottom-10 left-1/2 -translate-x-1/2 flex justify-around gap-2 p-1 rounded-full bg-black/6 menu-glass")}>
-      {[
-        { to: "/", text: "home" },
-        { to: "/promote", text: "promote" },
-        { to: "/claim", text: "claim" },
-      ].map(val => (
+    <nav className={clsx("fixed bottom-10 left-1/2 -translate-x-1/2", "flex justify-around gap-1", "p-1 rounded-full bg-white/3", "menu-glass")}>
+      {menuItems.map(item => (
         <NavLink
-          key={val.to}
-          to={val.to}
+          key={item.to}
+          to={item.to}
           className={({ isActive }) =>
             clsx(
-              "text-sm p-2 px-3 rounded-full text-white/85 hover:bg-white/8 hover:text-white menu-item",
-              isActive && "bg-white/16 text-white menu-item--active",
+              "flex items-center justify-center",
+              "p-2 px-3 rounded-full",
+              "text-white/85 hover:text-white",
+              "hover:bg-white/8",
+              "menu-item",
+              isActive && "bg-white/15 text-white menu-item--active",
             )
           }
         >
-          {val.text}
+          {item.icon}
         </NavLink>
       ))}
     </nav>

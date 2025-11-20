@@ -5,6 +5,7 @@ import sdk from "@farcaster/miniapp-sdk"
 import clsx from "clsx"
 import { useEffect } from "react"
 import { BrowserRouter, Route, Routes } from "react-router"
+import Snowfall from "react-snowfall"
 import Header from "./components/Header"
 import Menu from "./components/Menu"
 import Claim from "./pages/Claim"
@@ -35,6 +36,8 @@ export default function App() {
 
   return (
     <div onDragStart={e => e.preventDefault()}>
+      <Snowfall color="#fff" wind={[-0.5, 2]} speed={[0.5, 1.5]} radius={[1, 3]} snowflakeCount={150} />
+
       <Providers>
         <BrowserRouter>
           <Header />
@@ -45,7 +48,7 @@ export default function App() {
           </Routes>
           <Menu />
         </BrowserRouter>
-        <div className={clsx("fixed top-0 left-0 w-screen h-screen -z-10", "bg-linear-to-br from-(--bg) to-(--bg)/90")}></div>
+        <div className={clsx("fixed top-0 left-0 w-screen h-screen -z-10", "bg-linear-to-br from-(--bgColor) to-(--bgColor)/70")}></div>
         {/* <img
           src="/images/global/bg.svg"
           alt="bg"
