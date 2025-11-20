@@ -1,11 +1,11 @@
-import { Inter } from "next/font/google"
+import { Ubuntu } from "next/font/google"
 import { ReactNode } from "react"
 import "./globals.css"
 import { MINIAPP, MINIAPP_DESCRIPTION, MINIAPP_TITLE } from "./lib/constants"
 
-const inter = Inter({
+const inter = Ubuntu({
   variable: "--inter",
-  weight: "variable",
+  weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
 })
 

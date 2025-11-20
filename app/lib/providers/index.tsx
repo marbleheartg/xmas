@@ -7,7 +7,7 @@ import { createAppKit } from "@reown/appkit/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { CreateConnectorFn, WagmiProvider } from "wagmi"
 
-const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "YOUR_PROJECT_ID"
+const projectId = process.env.NEXT_PUBLIC_REOWN_PROJECT_ID!
 
 const connectors: CreateConnectorFn[] = [miniAppConnector()]
 const wagmiAdapter = new WagmiAdapter({ networks: [base], projectId, ssr: false, connectors })
