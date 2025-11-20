@@ -65,7 +65,7 @@ const Menu = () => {
   ]
 
   return (
-    <nav className={clsx("fixed bottom-10 left-1/2 -translate-x-1/2", "flex justify-around gap-1", "p-1 rounded-full bg-white/3", "menu-glass")}>
+    <nav className={clsx("fixed bottom-10 left-1/2 -translate-x-1/2", "flex justify-around gap-1", "p-1 rounded-full bg-white/5", "menu-glass")}>
       {menuItems.map(item => (
         <NavLink
           key={item.to}
