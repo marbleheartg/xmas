@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <header className={clsx("fixed top-10 inset-x-9", "flex justify-between items-center")}>
-      <div className={clsx("text-xl p-1 px-2.5 pb-1.5 mb-0.5")}>logo</div>
+      <div className={clsx("text-xl p-1 px-2.5 pb-1.5 mb-0.5")}></div>
 
       <div className="outline rounded-full cursor-pointer overflow-hidden" onClick={() => open({ view: "Connect" })}>
         {isConnected ? (

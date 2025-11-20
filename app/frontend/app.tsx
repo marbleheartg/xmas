@@ -52,11 +52,11 @@ export default function App() {
         </BrowserRouter>
 
         <div className="pointer-events-none z-10">
-          <div className="fixed -top-16.5 -left-13 aspect-square w-45 -rotate-30">
+          <div className="fixed -top-16.5 -left-13 aspect-square w-45 -rotate-30 opacity-90">
             <NextImage src={"images/light.png"} fill alt="light" />
           </div>
 
-          <div className="fixed -right-16.5 -bottom-13 aspect-square w-54.5 rotate-23">
+          <div className="fixed -right-16.5 -bottom-13 aspect-square w-54.5 rotate-23 opacity-90">
             <NextImage src={"images/tree.png"} fill alt="tree" />
           </div>
         </div>
