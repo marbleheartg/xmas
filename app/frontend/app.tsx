@@ -4,7 +4,7 @@ import { updateStore } from "@/lib/store"
 import sdk from "@farcaster/miniapp-sdk"
 import clsx from "clsx"
 import NextImage from "next/image"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { BrowserRouter, Route, Routes } from "react-router"
 import Snowfall from "react-snowfall"
 import Header from "./components/Header"
@@ -26,7 +26,7 @@ export default function App() {
         preloadImage.src = "/images/tree.png"
         preloadImage.onload = async () => await sdk.actions.ready({ disableNativeGestures: true }).catch(() => {})
         preloadImage.onerror = async () => await sdk.actions.ready({ disableNativeGestures: true }).catch(() => {})
-      } catch (error) {
+      } catch (err) {
       } finally {
         await sdk.actions.ready({ disableNativeGestures: true }).catch(() => {})
       }
@@ -34,6 +34,39 @@ export default function App() {
       const { token: session } = await sdk.quickAuth.getToken()
       updateStore({ session })
     })()
+  }, [])
+
+  const [redLight, setRedLight] = useState(false)
+  const [blueLight, setBlueLight] = useState(false)
+  const [greenLight, setGreenLight] = useState(false)
+
+  useEffect(() => {
+    const redInterval = setInterval(
+      () => {
+        setRedLight(prev => !prev)
+      },
+      Math.floor(Math.random() * 5000) + 1000,
+    )
+
+    const blueInterval = setInterval(
+      () => {
+        setBlueLight(prev => !prev)
+      },
+      Math.floor(Math.random() * 5000) + 1000,
+    )
+
+    const greenInterval = setInterval(
+      () => {
+        setGreenLight(prev => !prev)
+      },
+      Math.floor(Math.random() * 5000) + 1000,
+    )
+
+    return () => {
+      clearInterval(redInterval)
+      clearInterval(blueInterval)
+      clearInterval(greenInterval)
+    }
   }, [])
 
   return (
@@ -52,11 +85,11 @@ export default function App() {
         </BrowserRouter>
 
         <div className="pointer-events-none z-10">
-          <div className="fixed -top-16.5 -left-13 aspect-square w-45 -rotate-30 opacity-90">
+          <div className="fixed -top-16.5 -left-13 aspect-square w-45 -rotate-30 opacity-95">
             <NextImage src={"images/light.png"} fill alt="light" />
           </div>
 
-          <div className="fixed -right-16.5 -bottom-13 aspect-square w-54.5 rotate-23 opacity-90">
+          <div className="fixed -right-16.5 -bottom-13 aspect-square w-54.5 rotate-23 opacity-95">
             <NextImage src={"images/tree.png"} fill alt="tree" />
           </div>
         </div>
@@ -64,6 +97,18 @@ export default function App() {
         <div className="fixed top-0 left-0 w-screen h-screen opacity-10 -z-10 pointer-events-none">
           <NextImage src={"images/bg.svg"} fill alt="bg" />
         </div>
+
+        {redLight && (
+          <div className="fixed top-10 left-[19px] aspect-square w-4 rounded-full bg-[rgba(220,66,47,0.5)] shadow-[0_0_20px_5px_rgba(220,66,47,0.75)]"></div>
+        )}
+
+        {blueLight && (
+          <div className="fixed top-5.5 left-14.5 aspect-square w-4 rounded-full bg-[rgba(67,167,238,0.45)] shadow-[0_0_20px_5px_rgba(67,167,238,0.75)]"></div>
+        )}
+
+        {greenLight && (
+          <div className="fixed -top-2 left-22 aspect-square w-4 rounded-full bg-[rgba(62,185,116,0.45)] shadow-[0_0_20px_5px_rgba(62,185,116,0.75)]"></div>
+        )}
 
         <div
           className={clsx("fixed top-0 left-0 w-screen h-screen -z-20 pointer-events-none", "bg-linear-to-br from-(--bgColor) to-(--bgColor)/70")}
