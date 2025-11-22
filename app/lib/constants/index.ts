@@ -2,9 +2,9 @@
 
 const CA = "0x"
 
-const MINIAPP_TITLE = "MINIAPP_TITLE"
+const MINIAPP_TITLE = "still thinking..."
 
-const MINIAPP_DESCRIPTION = "MINIAPP_DESCRIPTION"
+const MINIAPP_DESCRIPTION = "still thinking..."
 
 const MINIAPP = {
   version: "next",
