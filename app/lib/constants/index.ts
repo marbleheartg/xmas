@@ -1,3 +1,5 @@
+import { Abi } from "viem"
+
 const CA = "0x"
 
 const MINIAPP_TITLE = "christmas"
@@ -20,6 +22,6 @@ const MINIAPP = {
   },
 }
 
-const ABI = {}
+const ABI = {} as Abi
 
 export { ABI, CA, MINIAPP, MINIAPP_DESCRIPTION, MINIAPP_TITLE }
