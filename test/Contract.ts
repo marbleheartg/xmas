@@ -4,11 +4,18 @@ import { describe, it } from "node:test";
 
 describe("Contract", async function () {
   const { viem } = await network.connect();
+  const contract = await viem.deployContract("Whitelist");
+
   const publicClient = await viem.getPublicClient();
+  const [defaultWallet, nonOwnerWallet] = await viem.getWalletClients();
 
-  it("Should deploy the contract", async function () {
-    const contract = await viem.deployContract("Contract");
+  it("Should get whitelisted", async function () {
+    await contract.write.lfg();
 
-    assert.equal(1, 1);
+    const whitelisted = await contract.read.whitelisted([
+      defaultWallet.account.address,
+    ]);
+
+    assert.equal(whitelisted, true);
   });
 });
