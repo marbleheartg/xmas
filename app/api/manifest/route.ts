@@ -1,10 +1,12 @@
 import { MINIAPP_DESCRIPTION, MINIAPP_TITLE } from "@/lib/constants"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
 const { NEXT_PUBLIC_HOST } = process.env
 if (!NEXT_PUBLIC_HOST) throw new Error("ManifestCredentialsNotConfigured")
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  console.log(JSON.stringify(req))
+
   return NextResponse.json({
     miniapp: {
       version: "1",
@@ -12,16 +14,16 @@ export async function GET() {
       iconUrl: `https://${NEXT_PUBLIC_HOST}/images/og/icon.png`,
       homeUrl: `https://${NEXT_PUBLIC_HOST}`,
       splashImageUrl: `https://${NEXT_PUBLIC_HOST}/images/og/splash.png`,
-      splashBackgroundColor: "#653A35",
+      splashBackgroundColor: "#653a35",
       subtitle: MINIAPP_DESCRIPTION,
       description: MINIAPP_DESCRIPTION,
       primaryCategory: "entertainment",
       tagline: MINIAPP_DESCRIPTION,
       ogTitle: MINIAPP_TITLE,
       ogDescription: MINIAPP_DESCRIPTION,
-      ogImageUrl: `https://${NEXT_PUBLIC_HOST}/images/og/og.png`,
+      ogImageUrl: `https://${NEXT_PUBLIC_HOST}/images/og/cast.jpg`,
       castShareUrl: `https://${NEXT_PUBLIC_HOST}`,
-      heroImageUrl: `https://${NEXT_PUBLIC_HOST}/images/og/og.png`,
+      heroImageUrl: `https://${NEXT_PUBLIC_HOST}/images/og/hero.png`,
       canonicalDomain: NEXT_PUBLIC_HOST,
       screenshotUrls: [`https://${NEXT_PUBLIC_HOST}/images/og/screenshot.png`],
       requiredChains: ["eip155:8453"],

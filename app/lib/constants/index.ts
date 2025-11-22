@@ -6,7 +6,7 @@ const MINIAPP_DESCRIPTION = "christmas mini app"
 
 const MINIAPP = {
   version: "next",
-  imageUrl: `https://${process.env.NEXT_PUBLIC_HOST}/images/og/cast/image.jpg`,
+  imageUrl: `https://${process.env.NEXT_PUBLIC_HOST}/images/og/cast.jpg`,
   aspectRatio: "3:2",
   button: {
     title: "open",
@@ -15,7 +15,7 @@ const MINIAPP = {
       url: `https://${process.env.NEXT_PUBLIC_HOST}`,
       name: MINIAPP_TITLE,
       splashImageUrl: `https://${process.env.NEXT_PUBLIC_HOST}/images/og/splash.png`,
-      splashBackgroundColor: "#ffffff",
+      splashBackgroundColor: "#653a35",
     },
   },
 }
