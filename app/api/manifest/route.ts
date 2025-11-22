@@ -12,28 +12,23 @@ export async function GET() {
       iconUrl: `https://${NEXT_PUBLIC_HOST}/images/og/icon.png`,
       homeUrl: `https://${NEXT_PUBLIC_HOST}`,
       splashImageUrl: `https://${NEXT_PUBLIC_HOST}/images/og/splash.png`,
-      splashBackgroundColor: "#ffffff",
+      splashBackgroundColor: "#653A35",
       subtitle: MINIAPP_DESCRIPTION,
       description: MINIAPP_DESCRIPTION,
-      primaryCategory:
-        "games, social, finance, utility, productivity, health-fitness, news-media, music, shopping, education, developer-tools, entertainment, art-creativity",
-      tagline: "TAGLINE",
+      primaryCategory: "entertainment",
+      tagline: MINIAPP_DESCRIPTION,
       ogTitle: MINIAPP_TITLE,
       ogDescription: MINIAPP_DESCRIPTION,
       ogImageUrl: `https://${NEXT_PUBLIC_HOST}/images/og/og.png`,
       castShareUrl: `https://${NEXT_PUBLIC_HOST}`,
       heroImageUrl: `https://${NEXT_PUBLIC_HOST}/images/og/og.png`,
       canonicalDomain: NEXT_PUBLIC_HOST,
-      screenshotUrls: [
-        `https://${NEXT_PUBLIC_HOST}/images/og/screenshots/1.jpg`,
-        `https://${NEXT_PUBLIC_HOST}/images/og/screenshots/2.jpg`,
-        `https://${NEXT_PUBLIC_HOST}/images/og/screenshots/3.jpg`,
-      ],
+      screenshotUrls: [`https://${NEXT_PUBLIC_HOST}/images/og/screenshot.png`],
       requiredChains: ["eip155:8453"],
       requiredCapabilities: ["actions.viewProfile", "actions.composeCast", "actions.ready", "actions.close"],
       tags: ["1", "2", "3", "4", "5"],
 
-      webhookUrl: "NEYNAR_WEBHOOK_URL",
+      webhookUrl: "https://api.neynar.com/f/app/66c9f4da-7b8e-4597-97d1-0453368d78b7/event",
     },
   })
 }
