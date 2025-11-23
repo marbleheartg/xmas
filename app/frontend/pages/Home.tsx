@@ -23,7 +23,12 @@ export default function Home() {
 
   return (
     <main
-      className={clsx("fixed top-35 bottom-45 inset-x-1/12 z-30", "flex justify-center items-center", "p-5 rounded-4xl", "bg-white/10 menu-glass")}
+      className={clsx(
+        "fixed top-35 bottom-45 inset-x-1/12 z-30",
+        "flex flex-col justify-center items-center gap-3",
+        "p-5 rounded-4xl",
+        "bg-white/10 menu-glass",
+      )}
     >
       <div>{isSuccess ? "success!" : isLoading ? "loading..." : ""}</div>
 
