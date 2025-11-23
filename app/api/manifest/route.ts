@@ -7,10 +7,9 @@ if (!NEXT_PUBLIC_HOST) throw new Error("ManifestCredentialsNotConfigured")
 export async function GET(req: NextRequest) {
   return NextResponse.json({
     accountAssociation: {
-      header: "eyJmaWQiOjEwMjEyMTQsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHgwZjI2NWYxNUMzQUEyNmFDZkQ1QTZkNDBlQzBBMjBmNTE2NTZDYWQ1In0",
-      payload: "eyJkb21haW4iOiJtb25hZC1mbG93ZXJzLnh5eiJ9",
-      signature:
-        "MHhhMGUyYmI0YzY4NzI5MWJjYTVmMzJmMTZjZTA3OTRmYTlmZTVhMDU1M2IyOGE3YWYyNTFhODQ4YmY0MDM5NzNlMzAzOTVlYjU0OTYyZDE1Mjg3NjM3Njc0Y2I5MTA1MGY4ZGM5OGIwMmVmZDU1YjkwOWQxNTY3OTUyNWYxNGE3MDFi",
+      header: "eyJmaWQiOjEwMjEyMTQsInR5cGUiOiJhdXRoIiwia2V5IjoiMHgzMTU3NDk3YjgyZUM5MUEyMzRmMTFFZTQ0NTUzRDJhMzAzZThkNTllIn0",
+      payload: "eyJkb21haW4iOiJjYW5keS5tYXJibGVoZWFydC54eXoifQ",
+      signature: "PZhzUXy3fZEKAc04aEaXfAWkMpBglRbShwhFwhDvYnIlynIgWWPG0RVgU8Jnc73IYFyHa2XcrMHuARVdaucqfRw=",
     },
     miniapp: {
       version: "1",
