@@ -1,8 +1,8 @@
 const CA = "0xEce8Ca10b7f19b322b18E08dF1b647d8820C1C34"
 
-const MINIAPP_TITLE = "christmas"
+const MINIAPP_TITLE = "candy"
 
-const MINIAPP_DESCRIPTION = "christmas mini app"
+const MINIAPP_DESCRIPTION = "candy mini app"
 
 const MINIAPP = {
   version: "next",
