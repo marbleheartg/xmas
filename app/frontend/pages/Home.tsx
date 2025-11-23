@@ -30,6 +30,8 @@ export default function Home() {
       <button
         className="text-(--bg)"
         onClick={() => {
+          if (store.getState().capabilities?.includes("haptics.impactOccurred")) sdk.haptics.impactOccurred("medium")
+
           try {
             connect({ connector: connectors[0] })
           } catch (err) {}

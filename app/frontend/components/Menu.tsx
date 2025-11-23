@@ -1,3 +1,5 @@
+import { store } from "@/lib/store"
+import sdk from "@farcaster/miniapp-sdk"
 import clsx from "clsx"
 import { NavLink } from "react-router"
 
@@ -80,6 +82,9 @@ const Menu = () => {
               isActive && "bg-white/15 text-white menu-item--active",
             )
           }
+          onClick={() => {
+            if (store.getState().capabilities?.includes("haptics.selectionChanged")) sdk.haptics.selectionChanged()
+          }}
         >
           {item.icon}
         </NavLink>

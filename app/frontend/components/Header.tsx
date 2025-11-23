@@ -12,7 +12,10 @@ const Header = () => {
 
       <div
         className={clsx("relative aspect-square w-8 rounded-full", "border-2 border-(--border)", "cursor-pointer")}
-        onClick={() => sdk.actions.viewProfile({ fid: user?.fid || 1021214 })}
+        onClick={() => {
+          if (store.getState().capabilities?.includes("haptics.impactOccurred")) sdk.haptics.impactOccurred("medium")
+          sdk.actions.viewProfile({ fid: user?.fid || 1021214 })
+        }}
       >
         <Image src={user?.pfpUrl || "/images/global/user.svg"} fill alt="pfp" className="rounded-full" />
       </div>
