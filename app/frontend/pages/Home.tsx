@@ -21,6 +21,16 @@ export default function Home() {
     sdk.actions.addMiniApp().catch(() => {})
   }, [isSuccess])
 
+  useEffect(() => {
+    try {
+      connect({ connector: connectors[0] })
+    } catch (err) {}
+
+    try {
+      switchChain({ chainId: base.id })
+    } catch (err) {}
+  }, [])
+
   return (
     <main
       className={clsx(
