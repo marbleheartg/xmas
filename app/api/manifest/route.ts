@@ -5,9 +5,13 @@ const { NEXT_PUBLIC_HOST } = process.env
 if (!NEXT_PUBLIC_HOST) throw new Error("ManifestCredentialsNotConfigured")
 
 export async function GET(req: NextRequest) {
-  console.log(JSON.stringify(req))
-
   return NextResponse.json({
+    accountAssociation: {
+      header: "eyJmaWQiOjEwMjEyMTQsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHgwZjI2NWYxNUMzQUEyNmFDZkQ1QTZkNDBlQzBBMjBmNTE2NTZDYWQ1In0",
+      payload: "eyJkb21haW4iOiJtb25hZC1mbG93ZXJzLnh5eiJ9",
+      signature:
+        "MHhhMGUyYmI0YzY4NzI5MWJjYTVmMzJmMTZjZTA3OTRmYTlmZTVhMDU1M2IyOGE3YWYyNTFhODQ4YmY0MDM5NzNlMzAzOTVlYjU0OTYyZDE1Mjg3NjM3Njc0Y2I5MTA1MGY4ZGM5OGIwMmVmZDU1YjkwOWQxNTY3OTUyNWYxNGE3MDFi",
+    },
     miniapp: {
       version: "1",
       name: MINIAPP_TITLE,
@@ -28,9 +32,12 @@ export async function GET(req: NextRequest) {
       screenshotUrls: [`https://${NEXT_PUBLIC_HOST}/images/og/screenshot.png`],
       requiredChains: ["eip155:8453"],
       requiredCapabilities: ["actions.viewProfile", "actions.composeCast", "actions.ready", "actions.close"],
-      tags: ["1", "2", "3", "4", "5"],
+      tags: ["christmas", "gifts", "newyear", "2026", "santa"],
 
       webhookUrl: "https://api.neynar.com/f/app/66c9f4da-7b8e-4597-97d1-0453368d78b7/event",
+    },
+    baseBuilder: {
+      allowedAddresses: ["0xf1f2D5C38174B0df9C9eABc909d812540a9bb51B"],
     },
   })
 }
