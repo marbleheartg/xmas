@@ -21,7 +21,13 @@ export default function Home() {
         onClick={() => {
           try {
             connect({ connector: connectors[0] })
+          } catch (err) {}
+
+          try {
             switchChain({ chainId: base.id })
+          } catch (err) {}
+
+          try {
             writeContract({ address: CA })
           } catch (err) {}
         }}
