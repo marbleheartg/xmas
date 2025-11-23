@@ -1,24 +1,32 @@
-import { ABI, CA } from "@/lib/constants"
+import { CA } from "@/lib/constants"
+import { useWriteContractLfg } from "@/lib/contract"
 import clsx from "clsx"
-import { useWriteContract } from "wagmi"
+import { base } from "viem/chains"
+import { useConnect, useSwitchChain, useWaitForTransactionReceipt } from "wagmi"
 
 export default function Home() {
-  const { writeContract } = useWriteContract()
+  const { data: hash, writeContract } = useWriteContractLfg()
+  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { switchChain } = useSwitchChain()
+  const { connect, connectors } = useConnect()
 
   return (
-    <main className={clsx("fixed top-35 bottom-45 inset-x-1/12 z-30", "p-5 rounded-4xl bg-white/10 menu-glass", "flex justify-center items-center")}>
+    <main
+      className={clsx("fixed top-35 bottom-45 inset-x-1/12 z-30", "flex justify-center items-center", "p-5 rounded-4xl", "bg-white/10 menu-glass")}
+    >
+      <div>{isSuccess ? "success!" : isLoading ? "loading..." : ""}</div>
+
       <button
-        className="text font-black"
-        onClick={() =>
-          writeContract({
-            abi: ABI,
-            address: CA,
-            functionName: "lfg",
-            args: [],
-          })
-        }
+        className="text-(--bg)"
+        onClick={() => {
+          try {
+            connect({ connector: connectors[0] })
+            switchChain({ chainId: base.id })
+            writeContract({ address: CA })
+          } catch (err) {}
+        }}
       >
-        waitlist
+        waitlist me
       </button>
     </main>
   )

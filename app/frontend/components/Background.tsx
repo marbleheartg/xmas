@@ -58,9 +58,7 @@ const Background = () => {
         <div className="fixed -top-2 left-22 aspect-square w-4 rounded-full bg-[rgba(62,185,116,0.45)] shadow-[0_0_20px_5px_rgba(62,185,116,0.75)]"></div>
       )}
 
-      <div
-        className={clsx("fixed top-0 left-0 w-screen h-screen -z-20 pointer-events-none", "bg-linear-to-br from-(--bgColor) to-(--bgColor)/70")}
-      ></div>
+      <div className={clsx("fixed top-0 left-0 w-screen h-screen -z-20 pointer-events-none", "bg-linear-to-br from-(--bg) to-(--bg)/70")}></div>
     </div>
   )
 }

@@ -9,9 +9,8 @@
 } */
 
 @theme {
-  --accent: oklch(0.2308 0.057 51.42);
-
-  --bgColor: oklch(0.4 0.0616 27.54);
+  --accent: oklch(0, 0, 0);
+  --bg: oklch(0.4 0.0616 27.54);
   --border: oklch(0.75 0.0616 27.54);
 }
 

@@ -1,6 +1,4 @@
-import { Abi } from "viem"
-
-const CA = "0x"
+const CA = "0xEce8Ca10b7f19b322b18E08dF1b647d8820C1C34"
 
 const MINIAPP_TITLE = "christmas"
 
@@ -22,6 +20,4 @@ const MINIAPP = {
   },
 }
 
-const ABI = {} as Abi
-
-export { ABI, CA, MINIAPP, MINIAPP_DESCRIPTION, MINIAPP_TITLE }
+export { CA, MINIAPP, MINIAPP_DESCRIPTION, MINIAPP_TITLE }
