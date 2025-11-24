@@ -9,6 +9,7 @@ const wagmiConfig = createConfig({
   chains: [base],
   transports: { [base.id]: http() },
   connectors: [miniAppConnector()],
+  // multiInjectedProviderDiscovery: false,
 })
 
 const queryClient = new QueryClient({

@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react"
 const AudioPlayer: React.FC<{
   videoId: string
 }> = ({ videoId }) => {
-  const [volume, setVolume] = useState(15)
+  const [volume, setVolume] = useState(1)
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
   const setVolumeLevel = (newVolume: number) => {
@@ -32,7 +32,7 @@ const AudioPlayer: React.FC<{
 
     const handleLoad = () => {
       setTimeout(() => {
-        setVolumeLevel(15)
+        setVolumeLevel(1)
       }, 400)
     }
 
