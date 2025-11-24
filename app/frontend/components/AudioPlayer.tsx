@@ -6,17 +6,16 @@ import { useEffect, useRef, useState } from "react"
 const AudioPlayer: React.FC<{
   videoId: string
 }> = ({ videoId }) => {
+  const ua = navigator.userAgent.toLowerCase()
+
+  const isMobile = ua.includes("warpcast")
+  const isFirefox = ua.includes("firefox")
+  const isChrome = ua.includes("chrome")
+  const isSafari = ua.includes("safari")
+
   const [volume, setVolume] = useState(10)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
   const iframeRef = useRef<HTMLIFrameElement>(null)
-
-  useEffect(() => {
-    const ua = navigator.userAgent.toLowerCase()
-    const mobile = /iphone|ipad|ipod|android/.test(ua) || ua.includes("warpcast")
-
-    setIsMobile(mobile)
-  }, [])
 
   const sendCommand = (func: string, args: any[] = []) => {
     const iframe = iframeRef.current
@@ -50,9 +49,7 @@ const AudioPlayer: React.FC<{
     if (!iframe) return
 
     const handleLoad = () => {
-      setTimeout(() => {
-        setVolumeLevel(10)
-      }, 400)
+      setVolumeLevel(10)
     }
 
     iframe.addEventListener("load", handleLoad)

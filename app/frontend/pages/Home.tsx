@@ -80,10 +80,11 @@ export default function Home() {
         waitlist me
       </button>
 
-      {/* <pre className="fixed inset-0 text-xs">
-        <div>debug:</div>
-        <div>{JSON.stringify({ userAddress, isConnected, whitelisted, hash, isSuccess, ua: navigator.userAgent }, null, 2)}</div>
-      </pre> */}
+      {process.env.NODE_ENV === "development" && (
+        <pre className={clsx("fixed bottom-0 inset-x-0 p-5 pb-15 rounded-t-4xl", "text-xs text-wrap bg-amber-200/50 pointer-events-none")}>
+          <div>{JSON.stringify({ userAddress, isConnected, whitelisted, hash, isSuccess, ua: navigator.userAgent }, null, 2)}</div>
+        </pre>
+      )}
     </main>
   )
 }
