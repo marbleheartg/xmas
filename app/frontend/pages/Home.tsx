@@ -80,7 +80,10 @@ export default function Home() {
         waitlist me
       </button>
 
-      {/* <pre className="fixed inset-0 text-xs">{JSON.stringify({ userAddress, isConnected, whitelisted, hash, isSuccess }, null, 2)}</pre> */}
+      {/* <pre className="fixed inset-0 text-xs">
+        <div>debug:</div>
+        <div>{JSON.stringify({ userAddress, isConnected, whitelisted, hash, isSuccess, ua: navigator.userAgent }, null, 2)}</div>
+      </pre> */}
     </main>
   )
 }

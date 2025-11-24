@@ -47,11 +47,11 @@ const Background = () => {
       </div>
 
       {lights.red && (
-        <div className="fixed top-10 left-[19px] aspect-square w-4 rounded-full bg-[rgba(220,66,47,0.5)] shadow-[0_0_20px_5px_rgba(220,66,47,0.75)]"></div>
+        <div className="fixed top-8 left-[13px] aspect-square w-4 rounded-full bg-[rgba(220,66,47,0.5)] shadow-[0_0_20px_5px_rgba(220,66,47,0.75)]"></div>
       )}
 
       {lights.blue && (
-        <div className="fixed top-5.5 left-14.5 aspect-square w-4 rounded-full bg-[rgba(67,167,238,0.45)] shadow-[0_0_20px_5px_rgba(67,167,238,0.75)]"></div>
+        <div className="fixed top-4 left-13.5 aspect-square w-4 rounded-full bg-[rgba(67,167,238,0.45)] shadow-[0_0_20px_5px_rgba(67,167,238,0.75)]"></div>
       )}
 
       {lights.green && (

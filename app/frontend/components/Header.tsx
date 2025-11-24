@@ -2,7 +2,7 @@ import sdk from "@farcaster/miniapp-sdk"
 import clsx from "clsx"
 import { default as Image, default as NextImage } from "next/image"
 import { store } from "../../lib/store"
-// import AudioPlayer from "./AudioPlayer"
+import AudioPlayer from "./AudioPlayer"
 
 const Header = () => {
   const { user } = store()
@@ -13,7 +13,7 @@ const Header = () => {
         <NextImage className="rounded-full" src={"/images/logo.png"} alt="logo" width={48} height={48} />
       </div>
 
-      {/* <AudioPlayer videoId="C4qJeIjNd2U" /> */}
+      <AudioPlayer videoId="C4qJeIjNd2U" />
 
       <div
         className={clsx("flex justify-end w-12")}
