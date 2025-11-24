@@ -1,18 +1,29 @@
-import { CA } from "@/lib/constants"
-import { useWriteContractLfg } from "@/lib/contract"
+import { WAITLIST_CA } from "@/lib/constants"
+import { useReadContractWhitelisted, useWriteContractLfg } from "@/lib/contract"
 import { store } from "@/lib/store"
 import sdk from "@farcaster/miniapp-sdk"
 import clsx from "clsx"
 import { useEffect } from "react"
 import { base } from "viem/chains"
-import { useConnect, useSwitchChain, useWaitForTransactionReceipt } from "wagmi"
+import { useAccount, useConnect, useSwitchChain, useWaitForTransactionReceipt } from "wagmi"
 
 export default function Home() {
+  const { address: userAddress, isConnected } = useAccount()
+
+  const { data: whitelisted } = useReadContractWhitelisted({
+    address: WAITLIST_CA,
+    args: !!userAddress ? [userAddress] : undefined,
+    query: {
+      enabled: !!userAddress && isConnected,
+      refetchInterval: 2000,
+    },
+  })
+
   const { connect, connectors } = useConnect()
   const { switchChain } = useSwitchChain()
 
   const { data: hash, writeContract } = useWriteContractLfg()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { isSuccess, isLoading } = useWaitForTransactionReceipt({ hash })
 
   useEffect(() => {
     if (!isSuccess) return
@@ -22,6 +33,8 @@ export default function Home() {
   }, [isSuccess])
 
   useEffect(() => {
+    if (!connectors[0]) return
+
     try {
       connect({ connector: connectors[0] })
     } catch (err) {}
@@ -29,7 +42,7 @@ export default function Home() {
     try {
       switchChain({ chainId: base.id })
     } catch (err) {}
-  }, [])
+  }, [connectors])
 
   return (
     <main
@@ -37,13 +50,17 @@ export default function Home() {
         "fixed top-35 bottom-45 inset-x-1/12 z-30",
         "flex flex-col justify-center items-center gap-3",
         "p-5 rounded-4xl",
-        "bg-white/10 menu-glass",
+        "bg-white/10 glass",
       )}
     >
-      <div>{isSuccess ? "success!" : isLoading ? "loading..." : ""}</div>
+      <div>
+        {isLoading && "checking..."}
+        {!isLoading && (whitelisted ? "you're whitelisted!" : "")}
+      </div>
 
       <button
-        className="text-(--bg)"
+        className={clsx("text-(--bg)", "disabled:opacity-50 disabled:cursor-not-allowed")}
+        disabled={!!whitelisted}
         onClick={() => {
           if (store.getState().capabilities?.includes("haptics.impactOccurred")) sdk.haptics.impactOccurred("medium")
 
@@ -56,12 +73,14 @@ export default function Home() {
           } catch (err) {}
 
           try {
-            writeContract({ address: CA })
+            writeContract({ address: WAITLIST_CA })
           } catch (err) {}
         }}
       >
         waitlist me
       </button>
+
+      {/* <pre className="fixed inset-0 text-xs">{JSON.stringify({ userAddress, isConnected, whitelisted, hash, isSuccess }, null, 2)}</pre> */}
     </main>
   )
 }

@@ -33,7 +33,7 @@ const Background = () => {
       <Snowfall color="#fff" wind={[-0.5, 2]} speed={[0.5, 1.5]} radius={[1, 3]} snowflakeCount={120} />
 
       <div className="pointer-events-none z-10">
-        <div className="fixed -top-16.5 -left-13 aspect-square w-45 -rotate-30 opacity-95">
+        <div className="fixed -top-19 -left-14 aspect-square w-45 -rotate-23 opacity-95">
           <NextImage src={"/images/light.png"} fill alt="light" />
         </div>
 

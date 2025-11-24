@@ -23,7 +23,7 @@ export default function App() {
       } catch (err) {}
 
       try {
-        await preloadImages(["/images/tree.png", "/images/light.png", "/images/bg.svg"])
+        await preloadImages(["/images/tree.png", "/images/light.png", "/images/bg.svg", "/images/logo.png"])
       } catch (err) {
       } finally {
         await sdk.actions.ready({ disableNativeGestures: true }).catch(() => {})
