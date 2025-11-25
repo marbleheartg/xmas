@@ -13,7 +13,7 @@ const AudioPlayer: React.FC<{
   const isChrome = ua.includes("chrome")
   const isSafari = ua.includes("safari")
 
-  const [volume, setVolume] = useState(10)
+  const [volume, setVolume] = useState(5)
   const [isPlaying, setIsPlaying] = useState(false)
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
@@ -45,11 +45,12 @@ const AudioPlayer: React.FC<{
 
   useEffect(() => {
     if (isMobile) return
+
     const iframe = iframeRef.current
     if (!iframe) return
 
     const handleLoad = () => {
-      setVolumeLevel(10)
+      setVolumeLevel(5)
     }
 
     iframe.addEventListener("load", handleLoad)
@@ -61,8 +62,7 @@ const AudioPlayer: React.FC<{
       <div
         className={clsx("flex justify-between items-center rounded-full bg-white/10 gap-1.5 glass", "px-2 pr-3 py-1", isMobile ? "text-xs" : "")}
         onClick={() => {
-          if (!isMobile) return
-          togglePlayPause()
+          if (isMobile) togglePlayPause()
         }}
       >
         <div className={clsx(isMobile && "pt-px")}>
@@ -85,11 +85,13 @@ const AudioPlayer: React.FC<{
             min="0"
             max="100"
             value={volume}
-            onChange={e => setVolumeLevel(Number(e.target.value))}
+            onChange={e => {
+              setVolumeLevel(Number(e.target.value))
+            }}
             className={clsx("w-20", "accent-(--bg)")}
           />
         ) : (
-          <>xmas lofi music</>
+          <div>xmas lofi music</div>
         )}
       </div>
 
@@ -97,8 +99,14 @@ const AudioPlayer: React.FC<{
         ref={iframeRef}
         className={clsx("fixed top-0 left-0", "w-px h-px opacity-0", "pointer-events-none")}
         src={`https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=${isMobile ? 0 : 1}&controls=0&loop=1&playlist=${videoId}`}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="autoplay"
       />
+
+      {/* {process.env.NODE_ENV === "development" && (
+        <pre className={clsx("fixed bottom-0 inset-x-0 p-5 pb-30 rounded-t-4xl z-100", "text-xs text-wrap bg-amber-200/50 pointer-events-none")}>
+          <div>{JSON.stringify({ isPlaying, isMobile }, null, 2)}</div>
+        </pre>
+      )} */}
     </>
   )
 }
