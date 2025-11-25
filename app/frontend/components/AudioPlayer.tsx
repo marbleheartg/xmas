@@ -13,7 +13,7 @@ const AudioPlayer: React.FC<{
   const isChrome = ua.includes("chrome")
   const isSafari = ua.includes("safari")
 
-  const [volume, setVolume] = useState(5)
+  const [volume, setVolume] = useState(10)
   const [isPlaying, setIsPlaying] = useState(false)
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
@@ -50,7 +50,7 @@ const AudioPlayer: React.FC<{
     if (!iframe) return
 
     const handleLoad = () => {
-      setVolumeLevel(5)
+      setVolumeLevel(10)
     }
 
     iframe.addEventListener("load", handleLoad)
