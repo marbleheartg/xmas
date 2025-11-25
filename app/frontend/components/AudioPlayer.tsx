@@ -6,12 +6,7 @@ import { useEffect, useRef, useState } from "react"
 const AudioPlayer: React.FC<{
   videoId: string
 }> = ({ videoId }) => {
-  const ua = navigator.userAgent.toLowerCase()
-
-  const isMobile = ua.includes("warpcast")
-  const isFirefox = ua.includes("firefox")
-  const isChrome = ua.includes("chrome")
-  const isSafari = ua.includes("safari")
+  const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 768
 
   const [volume, setVolume] = useState(10)
   const [isPlaying, setIsPlaying] = useState(false)
