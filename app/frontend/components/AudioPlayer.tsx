@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react"
 const AudioPlayer: React.FC<{
   videoId: string
 }> = ({ videoId }) => {
-  const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 768
+  const isMobile = window.matchMedia("(pointer: coarse)").matches
 
   const [volume, setVolume] = useState(10)
   const [isPlaying, setIsPlaying] = useState(false)
