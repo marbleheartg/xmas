@@ -12,6 +12,8 @@ import Claim from "./pages/Claim"
 import Home from "./pages/Home"
 import Promote from "./pages/Promote"
 
+const imgSrcs = ["tree.png", "light.png", "bg.svg", "logo.png"]
+
 export default function App() {
   useEffect(() => {
     clientErrorHandling()
@@ -20,11 +22,11 @@ export default function App() {
         const { user, client } = await sdk.context
         const capabilities = await sdk.getCapabilities()
         updateStore({ user, client, capabilities })
-      } catch (err) {}
+      } catch {}
 
       try {
-        await preloadImages(["/images/tree.png", "/images/light.png", "/images/bg.svg", "/images/logo.png"])
-      } catch (err) {
+        await preloadImages(imgSrcs.map(src => `/images/${src}`))
+      } catch {
       } finally {
         await sdk.actions.ready({ disableNativeGestures: true }).catch(() => {})
       }
@@ -32,7 +34,7 @@ export default function App() {
       try {
         const { token: session } = await sdk.quickAuth.getToken()
         updateStore({ session })
-      } catch (err) {}
+      } catch {}
     })()
   }, [])
 

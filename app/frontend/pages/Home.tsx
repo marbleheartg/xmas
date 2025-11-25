@@ -19,29 +19,26 @@ export default function Home() {
     },
   })
 
-  const { connect, connectors } = useConnect()
-  const { switchChain } = useSwitchChain()
-
   const { data: hash, writeContract } = useWriteContractLfg()
   const { isSuccess, isLoading } = useWaitForTransactionReceipt({ hash })
+
+  const { connect, connectors } = useConnect()
+  const { switchChain } = useSwitchChain()
 
   useEffect(() => {
     if (!isSuccess) return
     if (store.getState()?.client?.added) return
-
     sdk.actions.addMiniApp().catch(() => {})
   }, [isSuccess])
 
   useEffect(() => {
     if (!connectors[0]) return
-
     try {
       connect({ connector: connectors[0] })
-    } catch (err) {}
-
+    } catch {}
     try {
       switchChain({ chainId: base.id })
-    } catch (err) {}
+    } catch {}
   }, [connectors])
 
   return (
@@ -66,15 +63,13 @@ export default function Home() {
 
           try {
             connect({ connector: connectors[0] })
-          } catch (err) {}
-
+          } catch {}
           try {
             switchChain({ chainId: base.id })
-          } catch (err) {}
-
+          } catch {}
           try {
             writeContract({ address: WAITLIST_CA })
-          } catch (err) {}
+          } catch {}
         }}
       >
         waitlist me
