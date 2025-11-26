@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --accent: oklch(0, 0, 0);
+  --accent: oklch(0.3228 0.0527 189.08);
   --bg: oklch(0.4 0.0616 27.54);
   --border: oklch(0.75 0.0616 27.54);
 }
@@ -32,12 +32,13 @@
   }
 
   body {
-    @apply bg-black font-medium text-white lowercase;
-    @apply font-(family-name:--inter);
+    @apply bg-black text-white lowercase;
+    @apply font-(family-name:--mainFont);
   }
 
   h1 {
-    @apply font-bold text-xl pointer-events-none;
+    @apply font-(family-name:--titleFont) pointer-events-none;
+    @apply text-shadow-[-4px_-4px_0_var(--accent),_0px_-4px_0_var(--accent),_4px_-4px_0_var(--accent),_-4px_0px_0_var(--accent),_4px_0px_0_var(--accent),_-4px_4px_0_var(--accent),_0px_4px_0_var(--accent),_4px_4px_0_var(--accent)];
   }
 
   img {
@@ -45,7 +46,7 @@
   }
 
   button {
-    @apply bg-white text-black px-3 py-1 pb-1.5 cursor-pointer rounded-lg;
+    @apply font-bold cursor-pointer rounded-lg;
   }
 
   input[type="text"] {

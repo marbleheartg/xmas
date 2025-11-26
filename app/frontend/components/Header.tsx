@@ -1,6 +1,6 @@
 import sdk from "@farcaster/miniapp-sdk"
 import clsx from "clsx"
-import { default as Image, default as NextImage } from "next/image"
+import NextImage from "next/image"
 import { store } from "../../lib/store"
 import AudioPlayer from "./AudioPlayer"
 
@@ -23,7 +23,7 @@ const Header = () => {
         }}
       >
         <div className={clsx("relative aspect-square w-8", "border-2 border-(--border) rounded-full", "cursor-pointer")}>
-          <Image src={user?.pfpUrl || "/images/global/user.svg"} fill alt="pfp" className="rounded-full" />
+          <NextImage src={user?.pfpUrl || "/images/global/user.svg"} fill alt="pfp" className="rounded-full" />
         </div>
       </div>
     </header>

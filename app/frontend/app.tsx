@@ -10,7 +10,6 @@ import Header from "./components/Header"
 import Menu from "./components/Menu"
 import Claim from "./pages/Claim"
 import Home from "./pages/Home"
-import Promote from "./pages/Promote"
 
 const imgSrcs = ["tree.png", "light.png", "bg.svg", "logo.png"]
 
@@ -45,7 +44,6 @@ export default function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/promote" element={<Promote />} />
             <Route path="/claim" element={<Claim />} />
           </Routes>
           <Menu />

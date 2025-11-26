@@ -29,14 +29,14 @@ export default function Home() {
   const ref = useRef<FireworksHandlers>(null)
 
   useEffect(() => {
-    if (!connectors[0]) return
+    if (!connectors?.[0]) return
     try {
       connect({ connector: connectors[0] })
     } catch {}
     try {
       switchChain({ chainId: base.id })
     } catch {}
-  }, [connectors])
+  }, [connectors?.[0]])
 
   useEffect(() => {
     ;(async function () {
@@ -86,18 +86,18 @@ export default function Home() {
       <main
         className={clsx(
           "fixed top-35 bottom-45 inset-x-1/12 z-30",
-          "flex flex-col justify-center items-center gap-3",
+          "flex flex-col justify-center items-center gap-5",
           "p-5 rounded-4xl",
           "bg-white/10 glass",
         )}
       >
-        <div>
+        <div className="text-xl">
           {isLoading && "checking..."}
           {!isLoading && (whitelisted ? "you're whitelisted!" : "")}
         </div>
 
         <button
-          className={clsx("text-(--bg)", "disabled:opacity-50 disabled:cursor-not-allowed")}
+          className={clsx("bg-white text-(--bg) px-[7px] pb-[3px]", "disabled:opacity-50 disabled:cursor-not-allowed")}
           disabled={!!whitelisted}
           onClick={() => {
             if (store.getState().capabilities?.includes("haptics.impactOccurred")) sdk.haptics.impactOccurred("medium")

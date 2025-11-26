@@ -1,11 +1,17 @@
-import { Ubuntu } from "next/font/google"
+import { Delius, Luckiest_Guy } from "next/font/google"
 import { ReactNode } from "react"
 import "./globals.css"
 import { MINIAPP, MINIAPP_DESCRIPTION, MINIAPP_TITLE } from "./lib/constants"
 
-const inter = Ubuntu({
-  variable: "--inter",
-  weight: ["300", "400", "500", "700"],
+const mainFont = Delius({
+  variable: "--mainFont",
+  weight: ["400"],
+  subsets: ["latin"],
+})
+
+const titleFont = Luckiest_Guy({
+  variable: "--titleFont",
+  weight: ["400"],
   subsets: ["latin"],
 })
 
@@ -23,7 +29,7 @@ export default function RootLayout({
         <meta name="description" content={MINIAPP_DESCRIPTION} />
         <title>{MINIAPP_TITLE}</title>
       </head>
-      <body className={`${inter.variable} antialiased`}>{children}</body>
+      <body className={`${mainFont.variable} ${titleFont.variable} antialiased`}>{children}</body>
     </html>
   )
 }
