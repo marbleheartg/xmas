@@ -6,10 +6,10 @@ import { Fireworks, FireworksHandlers } from "@fireworks-js/react"
 import clsx from "clsx"
 import { useEffect, useRef } from "react"
 import { base } from "viem/chains"
-import { useAccount, useConnect, useSwitchChain, useWaitForTransactionReceipt } from "wagmi"
+import { useConnect, useConnection, useConnectors, useSwitchChain, useWaitForTransactionReceipt } from "wagmi"
 
 export default function Home() {
-  const { address: userAddress, isConnected } = useAccount()
+  const { address: userAddress, isConnected } = useConnection()
 
   const { data: whitelisted } = useReadContractWhitelisted({
     address: WAITLIST_CA,
@@ -23,10 +23,10 @@ export default function Home() {
   const { data: hash, writeContract } = useWriteContractLfg()
   const { isSuccess, isLoading } = useWaitForTransactionReceipt({ hash })
 
-  const { connect, connectors } = useConnect()
+  const { connect } = useConnect()
   const { switchChain } = useSwitchChain()
 
-  const ref = useRef<FireworksHandlers>(null)
+  const connectors = useConnectors()
 
   useEffect(() => {
     if (!connectors?.[0]) return
@@ -37,6 +37,8 @@ export default function Home() {
       switchChain({ chainId: base.id })
     } catch {}
   }, [connectors?.[0]])
+
+  const ref = useRef<FireworksHandlers>(null)
 
   useEffect(() => {
     ;(async function () {
