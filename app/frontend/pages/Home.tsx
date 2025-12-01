@@ -91,6 +91,12 @@ export default function Home() {
           "bg-white/10 glass",
         )}
       >
+        <div className="flex flex-col items-center gap-1 text-center">
+          <span className="text-xs tracking-widest opacity-60">COUNTDOWN</span>
+          <span className="text-3xl font-bold tabular-nums">{Math.ceil((new Date("2026-01-01").getTime() - Date.now()) / 86400000)}</span>
+          <span className="text-xs opacity-60">days until 2026</span>
+        </div>
+
         <div className="text-xl">
           {isLoading && "checking..."}
           {!isLoading && (whitelisted ? "you're whitelisted!" : "")}
