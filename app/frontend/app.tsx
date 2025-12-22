@@ -8,10 +8,12 @@ import { BrowserRouter, Route, Routes } from "react-router"
 import Background from "./components/Background"
 import Header from "./components/Header"
 import Menu from "./components/Menu"
-import Claim from "./pages/Claim"
+import Button from "./pages/Button"
+import Gifts from "./pages/Gifts"
 import Home from "./pages/Home"
 
-const imgSrcs = ["tree.png", "light.png", "bg.svg", "logo.png"]
+const pngImgSrcs = ["tree", "light", "logo", "snowflake", "hat", "cup", "gifts", "cookie", "candy-cane", "stocking", "star", "farcaster"]
+const svgImgSrcs = ["bg"]
 
 export default function App() {
   useEffect(() => {
@@ -24,7 +26,7 @@ export default function App() {
       } catch {}
 
       try {
-        await preloadImages(imgSrcs.map(src => `/images/${src}`))
+        await preloadImages([...svgImgSrcs, ...pngImgSrcs].map(src => `/images/${src}`))
       } catch {
       } finally {
         await sdk.actions.ready({ disableNativeGestures: true }).catch(() => {})
@@ -43,8 +45,9 @@ export default function App() {
         <BrowserRouter>
           <Header />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/claim" element={<Claim />} />
+            <Route path="/" element={<Gifts />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/button" element={<Button />} />
           </Routes>
           <Menu />
           <Background />

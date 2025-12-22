@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <header className={clsx("fixed top-10 inset-x-9", "flex justify-between items-center")}>
       <div className="w-12">
-        <NextImage className="rounded-full" src={"/images/logo.png"} alt="logo" width={48} height={48} />
+        <NextImage className="rounded-full" src={"/images/logo.png"} alt="logo" width={48} height={48} priority />
       </div>
 
       <AudioPlayer videoId="h_a3tqywv3I" />
@@ -23,7 +23,7 @@ const Header = () => {
         }}
       >
         <div className={clsx("relative aspect-square w-8", "border-2 border-(--border) rounded-full", "cursor-pointer")}>
-          <NextImage src={user?.pfpUrl || "/images/global/user.svg"} fill alt="pfp" className="rounded-full" />
+          <NextImage src={user?.pfpUrl || "/images/global/user.svg"} fill alt="pfp" className="rounded-full" priority />
         </div>
       </div>
     </header>
