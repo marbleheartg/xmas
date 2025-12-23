@@ -1,24 +1,40 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.30;
+// Compatible with OpenZeppelin Contracts ^5.5.0
+pragma solidity ^0.8.33;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
+import { ERC1155Upgradeable } from "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol";
+import { ERC1155SupplyUpgradeable } from "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155SupplyUpgradeable.sol";
+import { Initializable } from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import { OwnableUpgradeable } from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
-contract Whitelist is Ownable {
-    uint256 public start;
-
-    mapping(address => bool) public whitelisted;
-
-    constructor() Ownable(msg.sender) {
-        start = block.timestamp;
+contract Contract is Initializable, ERC1155Upgradeable, ERC1155SupplyUpgradeable, OwnableUpgradeable {
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor() {
+        _disableInitializers();
     }
 
-    function lfg() external {
-        require(block.timestamp < start + 7 days, "Whitelist period ended");
-        require(!whitelisted[msg.sender], "Already whitelisted");
-        whitelisted[msg.sender] = true;
+    function initialize(address initialOwner) public initializer {
+        __ERC1155_init("https://game.example/api/item/{id}.json");
+        __Ownable_init(initialOwner);
+        __ERC1155Supply_init();
     }
 
-    function startWhitelist() external onlyOwner {
-        start = block.timestamp;
+    function setURI(string memory newuri) public onlyOwner {
+        _setURI(newuri);
+    }
+
+    function mint(address account, uint256 id) public onlyOwner {
+        _mint(account, id, 1, "");
+    }
+
+    // The following functions are overrides required by Solidity.
+
+    function _update(
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory values
+    ) internal override(ERC1155Upgradeable, ERC1155SupplyUpgradeable) {
+        super._update(from, to, ids, values);
     }
 }

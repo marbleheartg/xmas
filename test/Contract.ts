@@ -2,20 +2,57 @@ import { network } from "hardhat";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
+import ContractModule from "../ignition/modules/ProxyModule.js";
+// import NewContractModule from "../ignition/modules/UpgradeModule.js";
+
 describe("Contract", async function () {
-  const { viem } = await network.connect();
-  const contract = await viem.deployContract("Whitelist");
+  const { ignition, viem } = await network.connect();
 
-  const publicClient = await viem.getPublicClient();
-  const [defaultWallet, nonOwnerWallet] = await viem.getWalletClients();
+  const [, otherAccount] = await viem.getWalletClients();
 
-  it("Should get whitelisted", async function () {
-    await contract.write.lfg();
+  describe("Proxy interaction", function () {
+    it("Should be usable via proxy", async function () {
+      const { contract } = await ignition.deploy(ContractModule);
 
-    const whitelisted = await contract.read.whitelisted([
-      defaultWallet.account.address,
-    ]);
+      assert.equal(
+        await contract.read.version({ account: otherAccount.account.address }),
+        "1.0.0",
+      );
+    });
 
-    assert.equal(whitelisted, true);
+    // it("Should be usable via proxy", async function () {
+    //   const [, otherAccount] = await viem.getWalletClients();
+
+    //   const { contract } = await ignition.deploy(ContractModule);
+
+    //   assert.equal(
+    //     await contract.read.version({ account: otherAccount.account.address }),
+    //     "1.0.0",
+    //   );
+    // });
   });
+
+  // describe("Upgrading", function () {
+  //   it("Should have upgraded the proxy to DemoV2", async function () {
+  //     const [, otherAccount] = await viem.getWalletClients();
+
+  //     const { contract } = await ignition.deploy(NewContractModule);
+
+  //     assert.equal(
+  //       await contract.read.version({ account: otherAccount.account.address }),
+  //       "2.0.0",
+  //     );
+  //   });
+
+  //   it("Should have set the name during upgrade", async function () {
+  //     const [, otherAccount] = await viem.getWalletClients();
+
+  //     const { contract } = await ignition.deploy(NewContractModule);
+
+  //     assert.equal(
+  //       await contract.read.name({ account: otherAccount.account.address }),
+  //       "Example Name",
+  //     );
+  //   });
+  // });
 });
