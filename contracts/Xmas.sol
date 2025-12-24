@@ -19,7 +19,7 @@ contract Xmas is Initializable, ERC1155Upgradeable, ERC1155SupplyUpgradeable, Ow
     }
 
     function initialize(address initialOwner) public initializer {
-        __ERC1155_init("ipfs://bafybeig2jt2vbu36h5emnfybhshpwqt7d3esf3oecbsdlzqjitcdwalrw4/{id}.json");
+        __ERC1155_init("ipfs://bafybeicgztdwoh3ye7hdzcxyulfcflbfbqfgfcvrvupf5kpbxaxyzkqoey/{id}.json");
         __Ownable_init(initialOwner);
         __ERC1155Supply_init();
     }
