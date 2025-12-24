@@ -75,8 +75,18 @@ export default function Gifts() {
         }
       }
 
-      if (store.getState()?.client?.added) return
-      sdk.actions.addMiniApp().catch(() => {})
+      sdk.actions
+        .composeCast({
+          text: [`hey, @${recipientData?.username}! ⛄`, `${message.length ? message : ""}`, "my little xmas gift is waiting for you — check it out:"]
+            .filter(Boolean)
+            .join("\n\n"),
+          embeds: [`https://${process.env.NEXT_PUBLIC_HOST}`],
+          // `/profile?flower=${flower}`
+        })
+        .catch(() => {})
+
+      // if (store.getState()?.client?.added) return
+      // sdk.actions.addMiniApp().catch(() => {})
     })()
   }, [isSuccess])
 
@@ -112,15 +122,6 @@ export default function Gifts() {
   })
 
   const [message, setMessage] = useState("")
-
-  useEffect(() => {
-    if (!isSuccess) return
-
-    sdk.actions.composeCast({
-      text: `hey, @${recipientData?.username}! ${message || "merry christmas!"}`,
-      embeds: ["https://xmas.marbleheart.xyz"],
-    })
-  }, [isSuccess])
 
   return (
     <main>
