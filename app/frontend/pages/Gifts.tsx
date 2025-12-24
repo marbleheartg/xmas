@@ -86,6 +86,8 @@ export default function Gifts() {
         .catch(() => {})
 
       setSelectedGift(undefined)
+      setRecipientUsername("")
+      setMessage("")
 
       // if (store.getState()?.client?.added) return
       // sdk.actions.addMiniApp().catch(() => {})
