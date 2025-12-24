@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
       requiredCapabilities: ["actions.viewProfile", "actions.composeCast", "actions.ready", "actions.close"],
       tags: ["christmas", "gifts", "newyear", "2026", "santa"],
 
-      webhookUrl: "https://api.neynar.com/f/app/66c9f4da-7b8e-4597-97d1-0453368d78b7/event",
+      webhookUrl: "https://api.neynar.com/f/app/0354f000-a2a6-417d-8d60-8dec30cafc21/event",
     },
     baseBuilder: {
       allowedAddresses: ["0xf1f2D5C38174B0df9C9eABc909d812540a9bb51B"],
