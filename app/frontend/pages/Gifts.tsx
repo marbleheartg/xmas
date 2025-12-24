@@ -85,6 +85,8 @@ export default function Gifts() {
         })
         .catch(() => {})
 
+      await new Promise(res => setTimeout(res, 500))
+
       setSelectedGift(undefined)
       setRecipientUsername("")
       setMessage("")
