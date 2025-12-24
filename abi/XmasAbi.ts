@@ -58,6 +58,7 @@ export const xmasAbi = [
     name: 'ERC1155MissingApprovalForAll',
   },
   { type: 'error', inputs: [], name: 'InvalidInitialization' },
+  { type: 'error', inputs: [], name: 'MessageTooLong' },
   { type: 'error', inputs: [], name: 'NotInitializing' },
   {
     type: 'error',
@@ -69,7 +70,7 @@ export const xmasAbi = [
     inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
     name: 'OwnableUnauthorizedAccount',
   },
-  { type: 'error', inputs: [], name: 'WishTooLong' },
+  { type: 'error', inputs: [], name: 'WithdrawFailed' },
   { type: 'error', inputs: [], name: 'WrongId' },
   {
     type: 'event',
@@ -257,7 +258,7 @@ export const xmasAbi = [
     ],
     name: 'mint',
     outputs: [],
-    stateMutability: 'nonpayable',
+    stateMutability: 'payable',
   },
   {
     type: 'function',
@@ -350,6 +351,13 @@ export const xmasAbi = [
     name: 'uri',
     outputs: [{ name: '', internalType: 'string', type: 'string' }],
     stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'withdraw',
+    outputs: [],
+    stateMutability: 'nonpayable',
   },
 ] as const
 
@@ -502,6 +510,14 @@ export const useWriteXmasTransferOwnership =
   })
 
 /**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link xmasAbi}__ and `functionName` set to `"withdraw"`
+ */
+export const useWriteXmasWithdraw = /*#__PURE__*/ createUseWriteContract({
+  abi: xmasAbi,
+  functionName: 'withdraw',
+})
+
+/**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link xmasAbi}__
  */
 export const useSimulateXmas = /*#__PURE__*/ createUseSimulateContract({
@@ -577,6 +593,14 @@ export const useSimulateXmasTransferOwnership =
     abi: xmasAbi,
     functionName: 'transferOwnership',
   })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link xmasAbi}__ and `functionName` set to `"withdraw"`
+ */
+export const useSimulateXmasWithdraw = /*#__PURE__*/ createUseSimulateContract({
+  abi: xmasAbi,
+  functionName: 'withdraw',
+})
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link xmasAbi}__
