@@ -10,16 +10,21 @@ const upgradeModule = buildModule("UpgradeModule", (m) => {
 
   const newImplContract = m.contract(CONTRACT_NAME);
 
-  const encodedUpgradeFunctionCall = m.encodeFunctionCall(
-    newImplContract,
-    "initializeV2",
-    [],
-  );
+  // const encodedUpgradeFunctionCall = m.encodeFunctionCall(
+  //   newImplContract,
+  //   "initializeV2",
+  //   [],
+  // );
 
   m.call(
     proxyAdmin,
     "upgradeAndCall",
-    [proxy, newImplContract, encodedUpgradeFunctionCall],
+    [
+      proxy,
+      newImplContract,
+      "0x",
+      //  encodedUpgradeFunctionCall
+    ],
     {
       from: proxyAdminOwner,
     },

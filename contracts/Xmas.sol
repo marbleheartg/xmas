@@ -11,7 +11,8 @@ contract Xmas is Initializable, ERC1155Upgradeable, ERC1155SupplyUpgradeable, Ow
     event Gift(address indexed sender, address indexed recipient, uint8 id, bytes message);
 
     error WrongId();
-    error WishTooLong();
+    error MessageTooLong();
+    error WithdrawFailed();
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -30,13 +31,18 @@ contract Xmas is Initializable, ERC1155Upgradeable, ERC1155SupplyUpgradeable, Ow
         _setURI(newuri);
     }
 
-    function mint(address to, uint8 id, bytes calldata message) public {
+    function mint(address to, uint8 id, bytes calldata message) public payable {
         if (id > 8) revert WrongId();
-        if (message.length > 256) revert WishTooLong();
+        if (message.length > 256) revert MessageTooLong();
 
         _mint(to, id, 1, "");
 
         emit Gift(msg.sender, to, id, message);
+    }
+
+    function withdraw() external onlyOwner {
+        (bool success, ) = msg.sender.call{ value: address(this).balance }("");
+        if (!success) revert WithdrawFailed();
     }
 
     // The following functions are overrides required by Solidity.
