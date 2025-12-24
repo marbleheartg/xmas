@@ -1,5 +1,6 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
+import { CONTRACT_NAME } from "../../config/index.js";
 import ContractModule from "./ProxyModule.js";
 
 const upgradeModule = buildModule("UpgradeModule", (m) => {
@@ -7,16 +8,18 @@ const upgradeModule = buildModule("UpgradeModule", (m) => {
 
   const { proxyAdmin, proxy } = m.useModule(ContractModule);
 
-  const newContract = m.contract("Contract");
+  const newImplContract = m.contract(CONTRACT_NAME);
 
-  const encodedFunctionCall = m.encodeFunctionCall(newContract, "setName", [
-    "Example Name",
-  ]);
+  const encodedUpgradeFunctionCall = m.encodeFunctionCall(
+    newImplContract,
+    "initializeV2",
+    [],
+  );
 
   m.call(
     proxyAdmin,
     "upgradeAndCall",
-    [proxy, newContract, encodedFunctionCall],
+    [proxy, newImplContract, encodedUpgradeFunctionCall],
     {
       from: proxyAdminOwner,
     },
@@ -28,7 +31,7 @@ const upgradeModule = buildModule("UpgradeModule", (m) => {
 const newContractModule = buildModule("NewContractModule", (m) => {
   const { proxy } = m.useModule(upgradeModule);
 
-  const contract = m.contractAt("Contract", proxy);
+  const contract = m.contractAt(CONTRACT_NAME, proxy);
 
   return { contract };
 });

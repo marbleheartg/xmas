@@ -7,17 +7,19 @@ import { ERC1155SupplyUpgradeable } from "@openzeppelin/contracts-upgradeable/to
 import { Initializable } from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import { OwnableUpgradeable } from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
-contract Contract is Initializable, ERC1155Upgradeable, ERC1155SupplyUpgradeable, OwnableUpgradeable {
+contract Xmas is Initializable, ERC1155Upgradeable, ERC1155SupplyUpgradeable, OwnableUpgradeable {
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
     }
 
     function initialize(address initialOwner) public initializer {
-        __ERC1155_init("https://game.example/api/item/{id}.json");
+        __ERC1155_init("ipfs://bafybeig2jt2vbu36h5emnfybhshpwqt7d3esf3oecbsdlzqjitcdwalrw4/{id}.json");
         __Ownable_init(initialOwner);
         __ERC1155Supply_init();
     }
+
+    // function initializeV2(...) public reinitializer(2) {}
 
     function setURI(string memory newuri) public onlyOwner {
         _setURI(newuri);

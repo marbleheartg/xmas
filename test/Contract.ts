@@ -2,34 +2,25 @@ import { network } from "hardhat";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
+import { getAddress } from "viem";
+import { CONTRACT_NAME } from "../config/index.js";
 import ContractModule from "../ignition/modules/ProxyModule.js";
 // import NewContractModule from "../ignition/modules/UpgradeModule.js";
 
-describe("Contract", async function () {
+describe(CONTRACT_NAME, async function () {
   const { ignition, viem } = await network.connect();
 
-  const [, otherAccount] = await viem.getWalletClients();
+  const [owner, otherAccount] = await viem.getWalletClients();
 
   describe("Proxy interaction", function () {
     it("Should be usable via proxy", async function () {
       const { contract } = await ignition.deploy(ContractModule);
 
       assert.equal(
-        await contract.read.version({ account: otherAccount.account.address }),
-        "1.0.0",
+        getAddress(await contract.read.owner()),
+        getAddress(owner.account.address),
       );
     });
-
-    // it("Should be usable via proxy", async function () {
-    //   const [, otherAccount] = await viem.getWalletClients();
-
-    //   const { contract } = await ignition.deploy(ContractModule);
-
-    //   assert.equal(
-    //     await contract.read.version({ account: otherAccount.account.address }),
-    //     "1.0.0",
-    //   );
-    // });
   });
 
   // describe("Upgrading", function () {
