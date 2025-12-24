@@ -8,8 +8,8 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({
     accountAssociation: {
       header: "eyJmaWQiOjEwMjEyMTQsInR5cGUiOiJhdXRoIiwia2V5IjoiMHgzMTU3NDk3YjgyZUM5MUEyMzRmMTFFZTQ0NTUzRDJhMzAzZThkNTllIn0",
-      payload: "eyJkb21haW4iOiJjYW5keS5tYXJibGVoZWFydC54eXoifQ",
-      signature: "PZhzUXy3fZEKAc04aEaXfAWkMpBglRbShwhFwhDvYnIlynIgWWPG0RVgU8Jnc73IYFyHa2XcrMHuARVdaucqfRw=",
+      payload: "eyJkb21haW4iOiJ4bWFzLm1hcmJsZWhlYXJ0Lnh5eiJ9",
+      signature: "Nx9s/wXimtd6Xy4B+XPZH12f8dh4CNJ6547buk6qxZ0N2OWk/ZuDf/yI5xnbe8HhpMOM0E6YtR43tdMaV3huuRw=",
     },
     miniapp: {
       version: "1",

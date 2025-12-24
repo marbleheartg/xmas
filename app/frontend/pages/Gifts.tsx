@@ -265,6 +265,11 @@ export default function Gifts() {
                     ],
                     chainId: base.id,
                   })
+
+                  sdk.actions.composeCast({
+                    text: `hey, @${recipientData?.username}! ${message || "merry christmas!"}`,
+                    embeds: ["https://xmas.marbleheart.xyz"],
+                  })
                 } catch {}
               }}
             >
