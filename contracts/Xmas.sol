@@ -8,6 +8,11 @@ import { Initializable } from "@openzeppelin/contracts-upgradeable/proxy/utils/I
 import { OwnableUpgradeable } from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 contract Xmas is Initializable, ERC1155Upgradeable, ERC1155SupplyUpgradeable, OwnableUpgradeable {
+    event Gift(address indexed sender, address indexed recipient, uint8 id, bytes message);
+
+    error WrongId();
+    error WishTooLong();
+
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
@@ -25,8 +30,13 @@ contract Xmas is Initializable, ERC1155Upgradeable, ERC1155SupplyUpgradeable, Ow
         _setURI(newuri);
     }
 
-    function mint(address account, uint256 id) public onlyOwner {
-        _mint(account, id, 1, "");
+    function mint(address to, uint8 id, bytes calldata message) public {
+        if (id > 8) revert WrongId();
+        if (message.length > 256) revert WishTooLong();
+
+        _mint(to, id, 1, "");
+
+        emit Gift(msg.sender, to, id, message);
     }
 
     // The following functions are overrides required by Solidity.

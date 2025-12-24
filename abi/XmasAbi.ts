@@ -69,6 +69,8 @@ export const xmasAbi = [
     inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
     name: 'OwnableUnauthorizedAccount',
   },
+  { type: 'error', inputs: [], name: 'WishTooLong' },
+  { type: 'error', inputs: [], name: 'WrongId' },
   {
     type: 'event',
     anonymous: false,
@@ -88,6 +90,27 @@ export const xmasAbi = [
       { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
     ],
     name: 'ApprovalForAll',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'recipient',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      { name: 'id', internalType: 'uint8', type: 'uint8', indexed: false },
+      { name: 'message', internalType: 'bytes', type: 'bytes', indexed: false },
+    ],
+    name: 'Gift',
   },
   {
     type: 'event',
@@ -228,8 +251,9 @@ export const xmasAbi = [
   {
     type: 'function',
     inputs: [
-      { name: 'account', internalType: 'address', type: 'address' },
-      { name: 'id', internalType: 'uint256', type: 'uint256' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'id', internalType: 'uint8', type: 'uint8' },
+      { name: 'message', internalType: 'bytes', type: 'bytes' },
     ],
     name: 'mint',
     outputs: [],
@@ -569,6 +593,14 @@ export const useWatchXmasApprovalForAllEvent =
     abi: xmasAbi,
     eventName: 'ApprovalForAll',
   })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link xmasAbi}__ and `eventName` set to `"Gift"`
+ */
+export const useWatchXmasGiftEvent = /*#__PURE__*/ createUseWatchContractEvent({
+  abi: xmasAbi,
+  eventName: 'Gift',
+})
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link xmasAbi}__ and `eventName` set to `"Initialized"`

@@ -1,0 +1,6 @@
+{
+  "ProxyModule#Xmas": "0x9a28Ad27f4a74D081a77200159e94059DC97c261",
+  "ProxyModule#TransparentUpgradeableProxy": "0xC4a5cB6969cac3A16C0Dda8008aFFEB426464A66",
+  "ProxyModule#ProxyAdmin": "0x107d5f3447e1114386a7F06Bc6f0CA1272ab1826",
+  "ContractModule#Xmas": "0xC4a5cB6969cac3A16C0Dda8008aFFEB426464A66"
+}
