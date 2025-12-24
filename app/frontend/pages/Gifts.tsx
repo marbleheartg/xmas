@@ -113,6 +113,15 @@ export default function Gifts() {
 
   const [message, setMessage] = useState("")
 
+  useEffect(() => {
+    if (!isSuccess) return
+
+    sdk.actions.composeCast({
+      text: `hey, @${recipientData?.username}! ${message || "merry christmas!"}`,
+      embeds: ["https://xmas.marbleheart.xyz"],
+    })
+  }, [isSuccess])
+
   return (
     <main>
       <Fireworks
@@ -264,11 +273,6 @@ export default function Gifts() {
                       stringToHex(message.length > 0 ? message : "merry christmas!"),
                     ],
                     chainId: base.id,
-                  })
-
-                  sdk.actions.composeCast({
-                    text: `hey, @${recipientData?.username}! ${message || "merry christmas!"}`,
-                    embeds: ["https://xmas.marbleheart.xyz"],
                   })
                 } catch {}
               }}
