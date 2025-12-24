@@ -12,7 +12,7 @@ import Button from "./pages/Button"
 import Gifts from "./pages/Gifts"
 import Home from "./pages/Home"
 
-const pngImgSrcs = ["tree", "light", "logo", "snowflake", "hat", "cup", "gifts", "cookie", "candy-cane", "stocking", "star", "farcaster"]
+const pngImgSrcs = ["tree", "light", "logo", "snowflake", "hat", "cup", "gifts", "cookie", "candy-cane", "stocking", "star", "farcaster", "button"]
 const svgImgSrcs = ["bg"]
 
 export default function App() {
