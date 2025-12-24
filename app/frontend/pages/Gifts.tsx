@@ -280,6 +280,7 @@ export default function Gifts() {
                       stringToHex(message.length > 0 ? message : "merry christmas!"),
                     ],
                     chainId: base.id,
+                    // value: parseEther("0.001"),
                   })
                 } catch {}
               }}
@@ -290,7 +291,7 @@ export default function Gifts() {
         )}
       </div>
 
-      {process.env.NODE_ENV === "development" && (
+      {/* {process.env.NODE_ENV === "development" && (
         <pre className={clsx("fixed bottom-0 inset-x-0 p-5 pb-15 rounded-t-4xl z-50", "text-xs text-wrap bg-amber-200/50 pointer-events-none")}>
           <div>
             {JSON.stringify(
@@ -314,7 +315,7 @@ export default function Gifts() {
             )}
           </div>
         </pre>
-      )}
+      )} */}
     </main>
   )
 }

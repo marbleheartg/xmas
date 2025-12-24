@@ -250,7 +250,7 @@ export const xmasAbi = [
     ],
     name: "mint",
     outputs: [],
-    stateMutability: "nonpayable",
+    stateMutability: "payable",
   },
   {
     type: "function",
