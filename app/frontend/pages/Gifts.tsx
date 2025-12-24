@@ -1,6 +1,6 @@
+import { useWriteXmasMint } from "@/lib/abi"
 import { User } from "@/lib/api/types"
-import { WAITLIST_CA } from "@/lib/constants"
-import { useReadContractWhitelisted, useWriteContractLfg } from "@/lib/contract"
+import { XMAS_CA } from "@/lib/constants"
 import { store } from "@/lib/store"
 import sdk from "@farcaster/miniapp-sdk"
 import { Fireworks, FireworksHandlers } from "@fireworks-js/react"
@@ -9,9 +9,11 @@ import axios from "axios"
 import clsx from "clsx"
 import NextImage from "next/image"
 import { useEffect, useRef, useState } from "react"
-import { formatUnits, parseAbi } from "viem"
+import { formatUnits, parseAbi, stringToHex } from "viem"
 import { base } from "viem/chains"
 import { useConnect, useConnection, useConnectors, useReadContract, useSwitchChain, useWaitForTransactionReceipt } from "wagmi"
+
+const imgSrcs = ["snowflake", "hat", "cup", "gifts", "cookie", "candy-cane", "stocking", "star", "farcaster"]
 
 function useDebounce<T>(value: T, delay = 1000) {
   const [debounced, setDebounced] = useState(value)
@@ -27,16 +29,16 @@ function useDebounce<T>(value: T, delay = 1000) {
 export default function Gifts() {
   const { address: userAddress, isConnected } = useConnection()
 
-  const { data: whitelisted } = useReadContractWhitelisted({
-    address: WAITLIST_CA,
-    args: !!userAddress ? [userAddress] : undefined,
-    query: {
-      enabled: !!userAddress && isConnected,
-      refetchInterval: 2000,
-    },
-  })
+  // const { data: whitelisted } = useReadContractWhitelisted({
+  //   address: WAITLIST_CA,
+  //   args: !!userAddress ? [userAddress] : undefined,
+  //   query: {
+  //     enabled: !!userAddress && isConnected,
+  //     refetchInterval: 2000,
+  //   },
+  // })
 
-  const { data: hash, mutate: writeLfg } = useWriteContractLfg()
+  const { data: hash, writeContract } = useWriteXmasMint()
   const { isSuccess, isLoading } = useWaitForTransactionReceipt({ hash })
 
   const { mutate: connect } = useConnect()
@@ -79,6 +81,8 @@ export default function Gifts() {
   }, [isSuccess])
 
   const [selectedGift, setSelectedGift] = useState<string>()
+  const giftIdx = selectedGift ? imgSrcs.indexOf(selectedGift) : 0
+
   const [pinnedXmas, setPinnedXmas] = useState<number>(0)
 
   const { data: xmasBalance } = useReadContract({
@@ -140,8 +144,8 @@ export default function Gifts() {
 
         {!selectedGift ? (
           <div className={clsx("flex flex-wrap justify-around items-center", "aspect-square w-full opacity-95")}>
-            {["snowflake", "hat", "cup", "gifts", "cookie", "candy-cane", "stocking", "star", "farcaster"].map(val => (
-              <div key={val} className="relative aspect-square w-[28%]" onClick={() => setSelectedGift(val)}>
+            {imgSrcs.map(val => (
+              <div key={val} className="relative aspect-square w-[28%] cursor-pointer" onClick={() => setSelectedGift(val)}>
                 <NextImage src={`/images/${val}.png`} fill alt={val} priority />
               </div>
             ))}
@@ -173,8 +177,8 @@ export default function Gifts() {
                       recipientData
                         ? recipientData?.pfp_url
                         : recipientIsLoading || recipientIsError
-                        ? "https://wrpcd.net/cdn-cgi/image/anim=false,fit=contain,f=auto,w=288/https%3A%2F%2Ffarcaster.xyz%2Favatar.png"
-                        : `https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/bc698287-5adc-4cc5-a503-de16963ed900/original`
+                          ? "https://wrpcd.net/cdn-cgi/image/anim=false,fit=contain,f=auto,w=288/https%3A%2F%2Ffarcaster.xyz%2Favatar.png"
+                          : `https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/bc698287-5adc-4cc5-a503-de16963ed900/original`
                     }
                     alt="userPfp"
                     className="absolute top-1/2 -translate-y-1/2 right-1 rounded-full cursor-pointer pointer-events-auto z-50"
@@ -240,12 +244,37 @@ export default function Gifts() {
                 />
               </div>
             </div>
-            <button className="w-full border-0 border-t border-t-white/20 rounded-none text-lg py-3 pb-3.5">send</button>
+            <button
+              className="w-full border-0 border-t border-t-white/20 rounded-none text-lg py-3 pb-3.5"
+              onClick={() => {
+                if (store.getState().capabilities?.includes("haptics.impactOccurred")) sdk.haptics.impactOccurred("medium")
+
+                try {
+                  connect({ connector: connectors[0] })
+                } catch {}
+                try {
+                  switchChain({ chainId: base.id })
+                } catch {}
+                try {
+                  writeContract({
+                    address: XMAS_CA,
+                    args: [
+                      (recipientData?.verified_addresses.eth_addresses[0] || userAddress) as `0x${string}`,
+                      giftIdx || 0,
+                      stringToHex(message.length > 0 ? message : "merry christmas!"),
+                    ],
+                    chainId: base.id,
+                  })
+                } catch {}
+              }}
+            >
+              send
+            </button>
           </div>
         )}
       </div>
 
-      {/* {process.env.NODE_ENV === "development" && (
+      {process.env.NODE_ENV === "development" && (
         <pre className={clsx("fixed bottom-0 inset-x-0 p-5 pb-15 rounded-t-4xl z-50", "text-xs text-wrap bg-amber-200/50 pointer-events-none")}>
           <div>
             {JSON.stringify(
@@ -253,9 +282,12 @@ export default function Gifts() {
                 userAddress,
                 isConnected,
                 debouncedUsername,
-                message,
                 recipientData: recipientData?.fid,
-                whitelisted,
+
+                eth_addresses: recipientData?.verified_addresses.eth_addresses[0] || userAddress,
+                giftIdx,
+                message,
+
                 pinnedXmas,
                 hash,
                 isSuccess,
@@ -266,7 +298,7 @@ export default function Gifts() {
             )}
           </div>
         </pre>
-      )} */}
+      )}
     </main>
   )
 }
