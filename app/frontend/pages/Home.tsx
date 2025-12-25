@@ -66,7 +66,7 @@ export default function Home() {
             ))}
           </div>
         ) : (
-          <div className="flex justify-center items-center size-full"> {isLoading ? "loading..." : "no gifts"}</div>
+          <div className="flex justify-center items-center size-full font-bold"> {isLoading ? "loading..." : "no gifts"}</div>
         )}
       </div>
 

@@ -9,7 +9,7 @@ import axios from "axios"
 import clsx from "clsx"
 import NextImage from "next/image"
 import { useEffect, useRef, useState } from "react"
-import { formatUnits, parseAbi, stringToHex } from "viem"
+import { formatUnits, parseAbi, parseEther, stringToHex } from "viem"
 import { base } from "viem/chains"
 import { useConnect, useConnection, useConnectors, useReadContract, useSwitchChain, useWaitForTransactionReceipt } from "wagmi"
 
@@ -75,7 +75,11 @@ export default function Gifts() {
 
       sdk.actions
         .composeCast({
-          text: [`hey, @${recipientData?.username}! ⛄`, `${message.length ? message : ""}`, "my little xmas gift is waiting for you — check it out:"]
+          text: [
+            `hey, @${recipientData?.username || "@dwr"}! ⛄`,
+            `${message.length ? message : ""}`,
+            "my little xmas gift is waiting for you — check it out:",
+          ]
             .filter(Boolean)
             .join("\n\n"),
           embeds: [`https://${process.env.NEXT_PUBLIC_HOST}/og?gift=${selectedGift}`],
@@ -258,8 +262,14 @@ export default function Gifts() {
               </div>
             </div>
             <button
-              className="w-full border-0 border-t border-t-white/20 rounded-none text-lg py-3 pb-3.5"
+              className={clsx(
+                "w-full border-0 border-t border-t-white/20 rounded-none text-lg py-3 pb-3.5",
+                "disabled:opacity-30 disabled:cursor-auto",
+              )}
+              disabled={!recipientData?.username}
               onClick={() => {
+                if (!recipientData?.username) return
+
                 if (store.getState().capabilities?.includes("haptics.impactOccurred")) sdk.haptics.impactOccurred("medium")
 
                 try {
@@ -277,7 +287,7 @@ export default function Gifts() {
                       stringToHex(message.length > 0 ? message : "merry christmas!"),
                     ],
                     chainId: base.id,
-                    // value: parseEther("0.001"),
+                    value: parseEther("0.00008012"),
                   })
                 } catch {}
               }}
