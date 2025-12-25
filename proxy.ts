@@ -5,10 +5,8 @@ import { NextRequest, NextResponse } from "next/server"
 const { NEXT_PUBLIC_HOST } = process.env
 if (!NEXT_PUBLIC_HOST) throw new Error("NextConfigCredentialsNotConfigured")
 
-const ogPath = "/og"
-
 export const config = {
-  matcher: ["/api/:path*", ogPath],
+  matcher: ["/api/:path*", "/og"],
 }
 
 const protectedRoutes = [""]
@@ -41,7 +39,7 @@ export async function proxy(request: NextRequest) {
     })
   }
 
-  if (pathname.startsWith(ogPath)) {
+  if (pathname.startsWith("/og")) {
     const userAgent = request.headers.get("user-agent")?.toLowerCase() || ""
 
     if (userAgent.includes("fcbot")) {
