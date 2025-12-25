@@ -42,7 +42,7 @@ export async function proxy(request: NextRequest) {
   if (pathname.startsWith("/og")) {
     const userAgent = request.headers.get("user-agent")?.toLowerCase() || ""
 
-    if (userAgent.includes("fcbot")) {
+    if (userAgent.includes("fcbot") || userAgent.includes("base dev")) {
       const gift = request.nextUrl.searchParams.get("gift")
 
       const imageUrl = gift ? `https://${NEXT_PUBLIC_HOST}/images/og/cast/${gift}.gif` : `https://${NEXT_PUBLIC_HOST}/images/og/cast/snowflake.gif`
