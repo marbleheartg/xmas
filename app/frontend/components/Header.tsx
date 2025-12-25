@@ -1,6 +1,7 @@
 import sdk from "@farcaster/miniapp-sdk"
 import clsx from "clsx"
 import NextImage from "next/image"
+import { NavLink } from "react-router"
 import { store } from "../../lib/store"
 import AudioPlayer from "./AudioPlayer"
 
@@ -15,17 +16,17 @@ const Header = () => {
 
       <AudioPlayer videoId="XSXEaikz0Bc" />
 
-      <div
+      <NavLink
+        to="/home"
         className={clsx("flex justify-end w-12")}
         onClick={() => {
           if (store.getState().capabilities?.includes("haptics.impactOccurred")) sdk.haptics.impactOccurred("medium")
-          sdk.actions.viewProfile({ fid: user?.fid || 1021214 })
         }}
       >
         <div className={clsx("relative aspect-square w-8", "border-2 border-(--border) rounded-full", "cursor-pointer")}>
           <NextImage src={user?.pfpUrl || "/images/global/user.svg"} fill alt="pfp" className="rounded-full" priority />
         </div>
-      </div>
+      </NavLink>
     </header>
   )
 }
