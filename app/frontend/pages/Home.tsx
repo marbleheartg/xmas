@@ -52,14 +52,17 @@ export default function Home() {
         <div className="h-px w-[96%] my-2 bg-white opacity-20" />
 
         {gifts?.length ? (
-          <div className="flex flex-wrap justify-between w-full gap-5 px-4 pt-2 text-sm overflow-y-auto">
+          <div className="flex flex-wrap justify-between w-full gap-5 px-4 pt-1.5 text-sm overflow-y-auto">
             {gifts.map((gift: any, idx: number) => (
               <div key={idx} className="border rounded-xl overflow-hidden w-[46%]">
                 <div className="relative aspect-square w-full bg-white">
                   <NextImage src={`https://${process.env.NEXT_PUBLIC_HOST}/images/${GIFT_IMG_SRCS[gift.idParam]}.png`} alt="giftImg" fill />
                 </div>
                 <div className="flex flex-col p-2">
-                  <div> From: {gift.sender.slice(0, 7)} </div>
+                  <div>
+                    From: {gift.sender.slice(0, 4)}...{gift.sender.slice(-3)}{" "}
+                  </div>
+                  <div>Date: {new Date(gift.timestamp_ * 1000).toLocaleDateString()}</div>
                   <div>Message: {hexToString(gift.message)}</div>
                 </div>
               </div>
