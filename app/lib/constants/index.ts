@@ -20,4 +20,6 @@ const MINIAPP = {
   },
 }
 
-export { MINIAPP, MINIAPP_DESCRIPTION, MINIAPP_TITLE, XMAS_CA }
+const GIFT_IMG_SRCS = ["snowflake", "hat", "cup", "gifts", "cookie", "candy-cane", "stocking", "star", "farcaster"]
+
+export { GIFT_IMG_SRCS, MINIAPP, MINIAPP_DESCRIPTION, MINIAPP_TITLE, XMAS_CA }

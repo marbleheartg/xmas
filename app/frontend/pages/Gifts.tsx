@@ -1,6 +1,6 @@
 import { useWriteXmasMint } from "@/lib/abi"
 import { User } from "@/lib/api/types"
-import { XMAS_CA } from "@/lib/constants"
+import { GIFT_IMG_SRCS, XMAS_CA } from "@/lib/constants"
 import { store } from "@/lib/store"
 import sdk from "@farcaster/miniapp-sdk"
 import { Fireworks, FireworksHandlers } from "@fireworks-js/react"
@@ -12,8 +12,6 @@ import { useEffect, useRef, useState } from "react"
 import { formatUnits, parseAbi, stringToHex } from "viem"
 import { base } from "viem/chains"
 import { useConnect, useConnection, useConnectors, useReadContract, useSwitchChain, useWaitForTransactionReceipt } from "wagmi"
-
-const imgSrcs = ["snowflake", "hat", "cup", "gifts", "cookie", "candy-cane", "stocking", "star", "farcaster"]
 
 function useDebounce<T>(value: T, delay = 1000) {
   const [debounced, setDebounced] = useState(value)
@@ -96,7 +94,7 @@ export default function Gifts() {
   }, [isSuccess])
 
   const [selectedGift, setSelectedGift] = useState<string>()
-  const giftIdx = selectedGift ? imgSrcs.indexOf(selectedGift) : 0
+  const giftIdx = selectedGift ? GIFT_IMG_SRCS.indexOf(selectedGift) : 0
 
   const [pinnedXmas, setPinnedXmas] = useState<number>(0)
 
@@ -159,7 +157,7 @@ export default function Gifts() {
 
         {!selectedGift ? (
           <div className={clsx("flex flex-wrap justify-around items-center", "aspect-square w-full opacity-95")}>
-            {imgSrcs.map(val => (
+            {GIFT_IMG_SRCS.map(val => (
               <div key={val} className="relative aspect-square w-[28%] cursor-pointer" onClick={() => setSelectedGift(val)}>
                 <NextImage src={`/images/${val}.png`} fill alt={val} priority />
               </div>
