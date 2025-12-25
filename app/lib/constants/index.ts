@@ -6,7 +6,7 @@ const MINIAPP_DESCRIPTION = "make your friends happy"
 
 const MINIAPP = {
   version: "next",
-  imageUrl: `https://${process.env.NEXT_PUBLIC_HOST}/images/og/cast.jpg`,
+  imageUrl: `https://${process.env.NEXT_PUBLIC_HOST}/images/og/cast/snowflake.gif`,
   aspectRatio: "3:2",
   button: {
     title: "open",

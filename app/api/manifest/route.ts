@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
       tagline: MINIAPP_DESCRIPTION,
       ogTitle: MINIAPP_TITLE,
       ogDescription: MINIAPP_DESCRIPTION,
-      ogImageUrl: `https://${NEXT_PUBLIC_HOST}/images/og/cast.jpg`,
+      ogImageUrl: `https://${NEXT_PUBLIC_HOST}/images/og/cast/snowflake.gif`,
       castShareUrl: `https://${NEXT_PUBLIC_HOST}`,
       heroImageUrl: `https://${NEXT_PUBLIC_HOST}/images/og/hero.png`,
       canonicalDomain: NEXT_PUBLIC_HOST,

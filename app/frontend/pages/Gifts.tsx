@@ -80,8 +80,7 @@ export default function Gifts() {
           text: [`hey, @${recipientData?.username}! ⛄`, `${message.length ? message : ""}`, "my little xmas gift is waiting for you — check it out:"]
             .filter(Boolean)
             .join("\n\n"),
-          embeds: [`https://${process.env.NEXT_PUBLIC_HOST}`],
-          // `/profile?flower=${flower}`
+          embeds: [`https://${process.env.NEXT_PUBLIC_HOST}/og?gift=${selectedGift}`],
         })
         .catch(() => {})
 

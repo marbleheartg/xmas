@@ -5,8 +5,10 @@ import { NextRequest, NextResponse } from "next/server"
 const { NEXT_PUBLIC_HOST } = process.env
 if (!NEXT_PUBLIC_HOST) throw new Error("NextConfigCredentialsNotConfigured")
 
+const ogPath = "/og"
+
 export const config = {
-  matcher: ["/api/:path*", "/ogpath"],
+  matcher: ["/api/:path*", ogPath],
 }
 
 const protectedRoutes = [""]
@@ -39,13 +41,17 @@ export async function proxy(request: NextRequest) {
     })
   }
 
-  if (pathname.startsWith("/ogpath")) {
+  if (pathname.startsWith(ogPath)) {
     const userAgent = request.headers.get("user-agent")?.toLowerCase() || ""
 
     if (userAgent.includes("fcbot")) {
+      const gift = request.nextUrl.searchParams.get("gift")
+
+      const imageUrl = gift ? `https://${NEXT_PUBLIC_HOST}/images/og/cast/${gift}.gif` : `https://${NEXT_PUBLIC_HOST}/images/og/cast/snowflake.gif`
+
       const parsedMiniapp = JSON.stringify({
         ...MINIAPP,
-        imageUrl: `https://${NEXT_PUBLIC_HOST}/images/og/hero.png`,
+        imageUrl,
       })
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;")
