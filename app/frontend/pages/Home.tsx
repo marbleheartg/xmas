@@ -54,7 +54,7 @@ export default function Home() {
         {gifts?.length ? (
           <div className="flex flex-wrap justify-between w-full gap-5 px-4 pt-2 text-sm overflow-y-auto">
             {gifts.map((gift: any, idx: number) => (
-              <div key={idx} className="border rounded-xl overflow-hidden w-[45%]">
+              <div key={idx} className="border rounded-xl overflow-hidden w-[46%]">
                 <div className="relative aspect-square w-full bg-white">
                   <NextImage src={`https://${process.env.NEXT_PUBLIC_HOST}/images/${GIFT_IMG_SRCS[gift.idParam]}.png`} alt="giftImg" fill />
                 </div>
@@ -66,7 +66,7 @@ export default function Home() {
             ))}
           </div>
         ) : (
-          "no gifts"
+          <div className="flex justify-center items-center size-full">no gifts</div>
         )}
       </div>
 
